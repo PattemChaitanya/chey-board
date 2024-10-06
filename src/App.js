@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import theme from "./config/theme";
+import { Provider } from "react-redux";
+import store from "./app/store";
+import AllComponents from "./pages/combine";
 
 function App() {
+  const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+  const mode = darkThemeMq ? "dark" : "light";
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme(mode)}>
+      <Provider store={store}>
+        <CssBaseline />
+        <AllComponents />
+      </Provider>
+    </ThemeProvider>
   );
 }
 
